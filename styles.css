@@ -423,7 +423,9 @@ body {
 }
 
 #mining-progress {
+    background-color: #222;
     border-radius: 0;
+    border: 0.1vw solid #000;
     height: 2dvh;
     width: calc(100% - 32vw);
     position: absolute;
@@ -445,7 +447,7 @@ body {
     border: 0.1vw solid #000;
 }
 
-#mining-progress::-webkit-progress-value {
+#mining-progress::-webkit-progress-value, #mining-progress::-moz-progress-bar {
     background: var(--color, #888);
     background-size: var(--size);
     border-radius: 0;
@@ -631,16 +633,16 @@ body {
     border-radius: 0;
 }
 
-.health-bar::-webkit-progress-value {
+.health-bar::-webkit-progress-value, .health-bar::-moz-progress-bar {
     background-color: #f00;
     border-radius: 0;
 }
 
-#radiation::-webkit-progress-value {
+#radiation::-webkit-progress-value, #radiation::-moz-progress-bar {
     background-color: #af0;
 }
 
-#radiation.danger::-webkit-progress-value {
+#radiation.danger::-webkit-progress-value, #radiation.danger::-moz-progress-bar {
     background-color: #ff0;
 }
 

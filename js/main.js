@@ -46,7 +46,7 @@ const VEIN_CHANCE = 1 / 150, GEODE_CHANCE = 1 / 2000;
 
 // set up scene and camera
 const engine = 
-// navigator.gpu ? new BABYLON.WebGPUEngine(canvas, {antialias: true}, {useLargeWorldRendering: true}) :
+navigator.gpu ? new BABYLON.WebGPUEngine(canvas, {antialias: true, useLargeWorldRendering: true}) :
 new BABYLON.Engine(canvas, true, {useLargeWorldRendering: true});
 if (engine.initAsync !== undefined) await engine.initAsync();
 const scene = new BABYLON.Scene(engine);
@@ -147,10 +147,19 @@ const keys = {
 };
 
 // mouse controls
-canvas.addEventListener("click", () => {
-    canvas.requestPointerLock({unadjustedMovement: true});
+canvas.addEventListener("click", async () => {
+    if (document.pointerLockElement) return;
+    try {
+        await canvas.requestPointerLock({unadjustedMovement: true});
+    } catch (e) {
+        if (e.name === "NotSupportedError") {
+            await canvas.requestPointerLock();
+        } else {
+            throw e;
+        }
+    }
 });
-canvas.addEventListener("mousemove", e => {
+canvas.addEventListener("pointermove", e => {
     vars.startIdleTime = performance.now();
     if (document.pointerLockElement === canvas) {
         perspectiveCamera.rotation.y += e.movementX * -0.0015 * vars.settings.sensitivity;
@@ -470,7 +479,7 @@ addEventListener("mousedown", () => {
         getElementById("logo").classList.add("animation-complete");
     }
 })
-canvas.addEventListener("mousedown", e => {
+canvas.addEventListener("pointerdown", e => {
     getElementById("dpad").style.display = "none";
     vars.startIdleTime = performance.now();
     if (e.button === 0) {
@@ -483,7 +492,7 @@ canvas.addEventListener("mousedown", e => {
         rightClick();
     }
 });
-canvas.addEventListener("mouseup", e => {
+canvas.addEventListener("pointerup", e => {
     if (e.button !== 0) return;
     // stop mining
     if (MINING) {
