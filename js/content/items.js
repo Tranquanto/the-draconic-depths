@@ -14,7 +14,7 @@ const replacedIds = { // for items that have been renamed; note: this will be re
     teleporter: "marineTeleporter",
     slate: "shale",
     slatePickaxe: "shalePickaxe",
-    ignimbrite: "chalk"
+    ignimbrite: "compressedSulfur"
 };
 
 import vars from "../vars.js";
@@ -721,15 +721,15 @@ let ores = {
         creator: ["Tranquanto", "squid"],
         sfx: "stone"
     },
-    chalk: {
-        name: "Chalk",
-        color: "#e4e4df",
+    compressedSulfur: {
+        name: "Compressed Sulfur",
+        color: "#fdff25",
         chance: Infinity,
         maxY: -1501,
         minY: -2000,
         str: 0.8,
         singleLayer: true,
-        desc: "A very soft sedimentary rock.",
+        desc: "A soft yellow native element.",
         sfx: "stone"
     },
     carnotite: {
@@ -1808,12 +1808,6 @@ let ores = {
         ],
         str: 2,
         desc: "A fibrous silicate mineral. Not very healthy!",
-        customTexture: {
-            ore: "transparent",
-            item: {
-                src: "asbestos"
-            }
-        },
         cave: {
             ceiling: 2
         },
