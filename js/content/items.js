@@ -1369,7 +1369,7 @@ let ores = {
             }
         ],
         str: 2,
-        desc: "A great starter metal! Good for a jump-start in mining."
+        desc: "I hope you know what iron is. If not, tough luck."
     },
     fossil: {
         name: "Fossil",
@@ -1418,7 +1418,7 @@ let ores = {
     // subsurface layer ores
     copper: {
         name: "Copper",
-        color: "#f60",
+        color: "#a05535",
         chance: [
             {
                 chance: {max: 0.04, min: 0.005},
