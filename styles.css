@@ -621,7 +621,7 @@ body {
 .health-bar {
     width: 20vw;
     height: 2dvh;
-    background-color: #000;
+    background-color: #444;
     border: 0.1vw solid #000;
     box-sizing: border-box;
     margin-bottom: 0.5dvh;
