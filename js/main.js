@@ -1020,7 +1020,7 @@ export async function generateOre(x, y, z, ore, bg, settings) {
                 bgMaterials.length = 0;
                 
                 for (const oreMaterial of materials) {
-                    oreMaterial.transparencyMode = BABYLON.PBRMaterial.PBRMATERIAL_ALPHATESTANDBLEND;
+                    oreMaterial.transparencyMode = BABYLON.PBRMaterial.PBRMATERIAL_ALPHABLEND;
                     oreMaterial.alphaCutOff = 0.01;
                     oreMaterial.forceDepthWrite = true;
                 }
@@ -1028,7 +1028,7 @@ export async function generateOre(x, y, z, ore, bg, settings) {
                 oreMesh.alphaIndex = 100;
             } else if (!ores[ore].singleLayer) {
                 for (const oreMaterial of materials) {
-                    oreMaterial.transparencyMode = BABYLON.PBRMaterial.PBRMATERIAL_ALPHATESTANDBLEND;
+                    oreMaterial.transparencyMode = BABYLON.PBRMaterial.PBRMATERIAL_ALPHABLEND;
                     oreMaterial.alphaCutOff = 0.01;
                 }
             } else {
@@ -3201,6 +3201,7 @@ function tick() {
 tick();
 
 engine.runRenderLoop(() => {
+    if (vars.PAUSED) return;
     if (vrEnabled && xrHelper.state === BABYLON.WebXRState.IN_XR) {
         xrHelper.camera.position.x = player.position.x;
         xrHelper.camera.position.y = player.position.y;
