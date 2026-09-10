@@ -2563,6 +2563,7 @@ let ores = {
         tier: "enigmatic",
         singleLayer: true,
         sfx: "stone",
+        condition: (x, y, z) => y === topLayer(x, z),
         conditionLabel: "Only spawns on the surface"
     },
     // epic
