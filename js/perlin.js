@@ -1,5 +1,3 @@
-import { createNoise3D } from "./simplex-noise.js";
-
 Math.seedrandom = function(seed) {
     const key = [];
 
@@ -144,31 +142,6 @@ export class PerlinNoise {
             ),
             w
         );
-    }
-}
-
-export class SimplexNoise {
-    constructor(seed) {
-        // Use the Mash/seedrandom PRNG for better seeding
-        this.seed = seed;
-        this._rand = rand01.bind(null, 0, 0, 0, seed - Math.SQRT2);
-        this._noise = createNoise3D(this._rand);
-
-        // uses pi to prevent any accidental collisions with biomes
-        this.xMod = Math.seedrandom(seed + Math.PI * 0.5)();
-        this.yMod = Math.seedrandom(seed + Math.PI)();
-        this.zMod = Math.seedrandom(seed + Math.PI * 1.5)();
-
-        this.cache = {};
-    }
-
-    noise(x, y, z) {
-        if (this.cache[`${x}_${y}_${z}`] !== undefined) return this.cache[`${x}_${y}_${z}`];
-        const x1 = x, y1 = y, z1 = z;
-        x += this.xMod;
-        y += this.yMod;
-        z += this.zMod;
-        return this.cache[`${x1}_${y1}_${z1}`] = this._noise(x, y, z);
     }
 }
 
