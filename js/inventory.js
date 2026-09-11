@@ -784,7 +784,7 @@ function openOre(ore) { // open wiki page
                 for (let i = 0; i <= intervalMax - intervalMin; i++) {
                     let y = intervalMin + i;
                     let chance = Math.min(calculateChance(y, interval, 0, 0, true), 1.001);
-                    if (chance < minChance) minChance = chance;
+                    if (chance < minChance) minChance = 0;
                     if (chance > maxChance) maxChance = chance;
                     sampledPoints.push({ x: y, y: chance, conditionLabel: interval.conditionLabel });
                 }
@@ -797,7 +797,7 @@ function openOre(ore) { // open wiki page
             for (let i = 0; i <= intervalMax - intervalMin; i++) {
                 let y = intervalMin + i;
                 let chance = Math.min(calculateChance(y, oreData, 0, 0, true), 1.001);
-                if (chance < minChance) minChance = chance;
+                if (chance < minChance) minChance = 0;
                 if (chance > maxChance) maxChance = chance;
                 sampledPoints.push({ x: y, y: chance, conditionLabel: oreData.conditionLabel });
             }
@@ -809,7 +809,7 @@ function openOre(ore) { // open wiki page
         minY = Math.max(oreData.minY, minAllowedY);
         maxY = Math.min(oreData.maxY, maxAllowedY);
 
-        minChance = calculateChance(minY, oreData, 0, 0, true);
+        minChance = calculateChance(minY, oreData, 0, 0, true) !== Infinity ? 0 : Infinity;
         maxChance = Math.min(calculateChance(maxY, oreData, 0, 0, true), 1.001);
     }
 
