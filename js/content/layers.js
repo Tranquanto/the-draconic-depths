@@ -205,12 +205,22 @@ const layers = {
         color: "#d6d6d6",
         music: "Tranquanto - Crystal Caverns (OST)"
     },
+    archaic: {
+        name: "Archaic",
+        desc: "An ancient layer full of fossils.",
+        item: "limestone",
+        max: -1000,
+        min: -1500,
+        lighting: {color: "#ffe", intensity: 0.1},
+        fog: 110,
+        fogColor: "#e5dcaa"
+    },
     volcanic: {
         name: "Volcanic",
         desc: "A hot layer made of volcanic rock.",
         item: "pumice",
-        max: -1000,
-        min: -1500,
+        max: -1500,
+        min: -2000,
         lighting: {color: "#f86", intensity: 0.2},
         fog: 60,
         fogColor: "#ff8800",
@@ -220,23 +230,12 @@ const layers = {
     toxic: {
         name: "Toxic",
         desc: "A layer full of poisonous minerals.",
-        item: "chalk",
-        max: -1500,
-        min: -2000,
-        lighting: {color: "#ff9", intensity: 0.3},
-        fog: 40,
-        fogColor: "#aaaa00"
-    },
-    irradiated: {
-        name: "Irradiated",
-        desc: "A dangerous radioactive layer.",
-        item: "carnotite",
+        item: "compressedSulfur",
         max: -2000,
         min: -2500,
-        lighting: {color: "#cf8", intensity: 0.22},
-        fog: 70,
-        fogColor: "#784",
-        music: "Tranquanto - Irradiated (OST)"
+        lighting: {color: "#ff9", intensity: 0.3},
+        fog: 40,
+        fogColor: "#784"
     },
     nuclear: {
         name: "Nuclear",

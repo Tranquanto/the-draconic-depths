@@ -10,11 +10,11 @@
  ------------------------------------------------------------- */
 
 const replacedIds = { // for items that have been renamed; note: this will be removed on release
-    gussite: "sunstone",
     teleporter: "marineTeleporter",
     slate: "shale",
     slatePickaxe: "shalePickaxe",
-    ignimbrite: "compressedSulfur"
+    ignimbrite: "compressedSulfur",
+    carnotite: "pitchblende"
 };
 
 import vars from "../vars.js";
@@ -709,12 +709,24 @@ let ores = {
         desc: "The bottom layer of the world. It's unbreakable. I think.",
         sfx: "stone"
     },
+    limestone: {
+        name: "Limestone",
+        color: "#ddcfa6",
+        chance: Infinity,
+        maxY: -1001,
+        minY: -1500,
+        singleLayer: true,
+        str: 1.4,
+        noGeode: true,
+        desc: "A sedimentary rock that encases geodes above the bedrock.",
+        sfx: "stone"
+    },
     pumice: {
         name: "Pumice",
         color: "#bcb87e",
         chance: Infinity,
-        maxY: -1001,
-        minY: -1500,
+        maxY: -1501,
+        minY: -2000,
         str: 0.9,
         singleLayer: true,
         desc: "A light, soft stone with a lot of air holes.",
@@ -725,22 +737,11 @@ let ores = {
         name: "Compressed Sulfur",
         color: "#fdff25",
         chance: Infinity,
-        maxY: -1501,
-        minY: -2000,
+        maxY: -2001,
+        minY: -2500,
         str: 0.8,
         singleLayer: true,
         desc: "A soft yellow native element.",
-        sfx: "stone"
-    },
-    carnotite: {
-        name: "Carnotite",
-        color: "#98a52d",
-        chance: Infinity,
-        maxY: -2001,
-        minY: -2500,
-        str: 1.4,
-        singleLayer: true,
-        desc: "A radioactive mineral of uranium and vanadium.",
         sfx: "stone"
     },
     pitchblende: {
@@ -1291,16 +1292,6 @@ let ores = {
         desc: "A variant of quartz. Can be found in geodes below bedrock.",
         sfx: "stone"
     },
-    limestone: {
-        name: "Limestone",
-        color: "#ddcfa6",
-        chance: 0, // geode-exclusive
-        singleLayer: true,
-        str: 1.4,
-        noGeode: true,
-        desc: "A sedimentary rock that encases geodes above the bedrock.",
-        sfx: "stone"
-    },
 
     // surface layer ores
     moonstone: {
@@ -1374,18 +1365,12 @@ let ores = {
     fossil: {
         name: "Fossil",
         color: "#ceccc5",
-        chance: 0.08,
-        maxY: maxHeight,
-        minY: minHeight,
+        chance: 1 / 124,
+        maxY: -1001,
+        minY: -1500,
         str: 3,
-        desc: "A fossilized bone of a prehistoric creature. Can only be found near clay.",
-        condition(x, y, z) {
-            if (y >= topLayer(x, z)) return false;
-            const n = getBiomeNumber(x, y, z, "clay");
-            return n >= 0.6 ? 1 : n > 0 ? (n / 0.6) ** 3 : 0;
-        },
-        conditionLabel: "Chance decreases with distance from clay biomes",
-        wikiBG: "clay"
+        desc: "A fossilized bone of a prehistoric creature.",
+        caveExclusive: -1
     },
     onyx: {
         name: "Onyx",
@@ -1654,17 +1639,17 @@ let ores = {
             {
                 chance: {max: 0.015, min: 0.0075},
                 maxY: -1001,
-                minY: -1500
+                minY: -2000
             },
             {
                 chance: {max: 0.0075, min: 0.011},
-                maxY: -1501,
-                minY: -2000
+                maxY: -2001,
+                minY: -2500
             },
             {
                 chance: {max: 0.011, min: 0},
                 easing: {type: "out", exponent: 2},
-                maxY: -2001,
+                maxY: -2501,
                 minY: -3000
             },
             {
@@ -1680,8 +1665,8 @@ let ores = {
         name: "Sulfur",
         color: "#ff0",
         chance: [
-            {chance: 0.026, maxY: -1001, minY: -1500},
-            {chance: {max: 0.026, min: 1 / 999}, maxY: -1501, minY: -2500, easing: {type: "out", exponent: 2}}
+            {chance: 0.026, maxY: -1501, minY: -2000},
+            {chance: {max: 0.026, min: 1 / 999}, maxY: -2001, minY: -2500, easing: {type: "out", exponent: 2}}
         ],
         str: 4,
         desc: "A soft yellow native element."
@@ -1690,8 +1675,8 @@ let ores = {
         name: "Phosphorus",
         color: "#7c1328",
         chance: {max: 0.01, min: 0.03},
-        maxY: -1301,
-        minY: -1500,
+        maxY: -1801,
+        minY: -2000,
         str: 5,
         desc: "A soft, waxy, and highly reactive element."
     },
@@ -1700,8 +1685,8 @@ let ores = {
         desc: "A hole in the earth that emits lava.",
         color: "#bcb87e",
         chance: 0.04,
-        maxY: -1001,
-        minY: -1500,
+        maxY: -1501,
+        minY: -2000,
         str: 1.6,
         customModel: true,
         oreColor: true,
@@ -1717,8 +1702,8 @@ let ores = {
         name: "Ash",
         color: "#666",
         chance: 0.5,
-        maxY: -1001,
-        minY: -1500,
+        maxY: -1501,
+        minY: -2000,
         str: 0.3,
         desc: "Fine particles of volcanic rock.",
         sfx: "sand",
@@ -1738,22 +1723,22 @@ let ores = {
             }
         }
     },
-
-    // toxic layer ores
     biotite: {
         name: "Biotite",
         color: "#111",
         chance: {max: 0.01, min: 0.03},
-        maxY: -1501,
+        maxY: -1901,
         minY: -2000,
         str: 4,
         desc: "A common black mica mineral."
     },
+
+    // toxic layer ores
     quartz: {
         name: "Quartz",
         color: "linear-gradient(to right, #e2c8e9, #fff, #db9fec)",
         chance: [
-            {chance: {max: 1 / 68, min: 1 / 425}, maxY: -1451, minY: -1800},
+            {chance: {max: 1 / 68, min: 1 / 425}, maxY: -1951, minY: -2300},
             {chance: {max: 1 / 137, min: 1 / 244}, maxY: -3501, minY: -4000}
         ],
         str: 5.5,
@@ -1767,8 +1752,8 @@ let ores = {
         name: "Thallium",
         color: "linear-gradient(to right, #bfb1a3, #dbd9d6)",
         chance: [
-            {chance: 1 / 245, maxY: -1620, minY: -2005},
-            {chance: {max: 1 / 245, min: 1 / 900}, maxY: -2006, minY: -2125}
+            {chance: 1 / 245, maxY: -2120, minY: -2505},
+            {chance: {max: 1 / 245, min: 1 / 900}, maxY: -2506, minY: -2625}
         ],
         str: 6.4,
         desc: "A very dangerous and poisonous metal.",
@@ -1780,8 +1765,8 @@ let ores = {
         name: "Thorium",
         color: "#686868",
         chance: {max: 1 / 230, min: 1 / 82},
-        maxY: -1800,
-        minY: -2200,
+        maxY: -2300,
+        minY: -2700,
         str: 10,
         radiation: 0.5,
         light: {
@@ -1796,13 +1781,13 @@ let ores = {
         chance: [
             {
                 chance: {max: 0.02, min: 0.043},
-                maxY: -1501,
-                minY: -2000
+                maxY: -2001,
+                minY: -2500
             },
             {
                 chance: {max: 0.043, min: 1 / 780},
-                maxY: -2001,
-                minY: -2150,
+                maxY: -2501,
+                minY: -2650,
                 easing: {type: "out", exponent: 2}
             }
         ],
@@ -1831,7 +1816,7 @@ let ores = {
         name: "Uranium",
         color: "#af0",
         chance: {max: 0.002, min: 0.011},
-        maxY: -2001,
+        maxY: -2501,
         minY: -3000,
         str: 12,
         radiation: 1,
@@ -1845,7 +1830,7 @@ let ores = {
         name: "Plutonium",
         color: "#ff4c00",
         chance: {max: 0, min: 0.00525},
-        maxY: -2001,
+        maxY: -2501,
         minY: -3000,
         str: 16,
         radiation: 2,
@@ -1859,7 +1844,7 @@ let ores = {
         name: "Neptunium",
         color: "#31d1c0",
         chance: {max: 0, min: 0.004},
-        maxY: -2501,
+        maxY: -2750,
         minY: -3000,
         str: 20,
         radiation: 3,
@@ -1873,7 +1858,7 @@ let ores = {
         name: "Malachite",
         color: "#00c181",
         chance: {max: 1 / 1000, min: 1 / 2000},
-        maxY: -2001,
+        maxY: -2501,
         minY: -3000,
         str: 18,
         light: {
@@ -1887,8 +1872,8 @@ let ores = {
         name: "Pizzazium Infinionite",
         color: "linear-gradient(to right, #056237, #00753f, #83fff5, #00753f, #056237)",
         chance: {max: 1 / 700, min: 1 / 550},
-        maxY: -2500,
-        minY: -2900,
+        maxY: -2700,
+        minY: -2960,
         str: 37,
         desc: "No one really knows what it does.",
         light: {
@@ -3446,8 +3431,8 @@ let ores = {
         noCollision: true,
         viscosity: 1500,
         str: 1,
-        maxY: -1000,
-        minY: -1500,
+        maxY: -1500,
+        minY: -2000,
         singleLayer: true,
         excludeFromWiki: 2,
         caveExclusive: true,
@@ -4891,17 +4876,17 @@ let recipes = [
         required: [{id: "biotite", count: 1}]
     },
     {
-        input: [{id: "uranium", count: 16}, {id: "chalcedony", count: 4}, {id: "plutonium", count: 1}, {id: "coal", count: 11}, {id: "carnotite", count: 100}],
+        input: [{id: "uranium", count: 16}, {id: "chalcedony", count: 4}, {id: "plutonium", count: 1}, {id: "coal", count: 11}, {id: "pitchblende", count: 100}],
         output: {id: "uraniumPickaxe", count: 1},
         required: [{id: "uranium", count: 1}]
     },
     {
-        input: [{id: "plutonium", count: 14}, {id: "uranium", count: 4}, {id: "copper", count: 7}, {id: "chalcedony", count: 12}, {id: "coal", count: 17}, {id: "carnotite", count: 250}],
+        input: [{id: "plutonium", count: 14}, {id: "uranium", count: 4}, {id: "copper", count: 7}, {id: "chalcedony", count: 12}, {id: "coal", count: 17}, {id: "pitchblende", count: 250}],
         output: {id: "plutoniumPickaxe", count: 1},
         required: [{id: "plutonium", count: 1}]
     },
     {
-        input: [{id: "neptunium", count: 15}, {id: "plutonium", count: 4}, {id: "copper", count: 10}, {id: "chalcedony", count: 20}, {id: "coal", count: 23}, {id: "carnotite", count: 150}, {id: "pitchblende", count: 150}, {id: "petrifiedWood", count: 50}],
+        input: [{id: "neptunium", count: 15}, {id: "plutonium", count: 4}, {id: "copper", count: 10}, {id: "chalcedony", count: 20}, {id: "coal", count: 23}, {id: "pitchblende", count: 150}, {id: "pitchblende", count: 150}, {id: "petrifiedWood", count: 50}],
         output: {id: "neptuniumPickaxe", count: 1},
         required: [{id: "neptunium", count: 1}]
     },
@@ -5113,7 +5098,7 @@ let recipes = [
         required: [{id: "surfaceTeleporter", count: 1}]
     },
     {
-        input: [{id: "volcanicTeleporter", count: 1}, {id: "uranium", count: 9}, {id: "plutonium", count: 3}, {id: "ulexite", count: 1}, {id: "carnotite", count: 60}, {id: "bedrock", count: 6}],
+        input: [{id: "volcanicTeleporter", count: 1}, {id: "uranium", count: 9}, {id: "plutonium", count: 3}, {id: "ulexite", count: 1}, {id: "pitchblende", count: 60}, {id: "bedrock", count: 6}],
         output: {id: "nuclearTeleporter", count: 1},
         required: [{id: "volcanicTeleporter", count: 1}]
     },
