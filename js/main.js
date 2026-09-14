@@ -775,6 +775,7 @@ export async function generateOre(x, y, z, ore, bg, settings) {
             settings.placed = block.placed;
             settings.isGeode = block.isGeode;
             settings.properties = {...block};
+            settings.isSaveMap = true;
             progress = block.progress;
         }
 
@@ -812,7 +813,7 @@ export async function generateOre(x, y, z, ore, bg, settings) {
     if (nd(settings.scale.y)) settings.scale.y = 1;
     if (nd(settings.scale.z)) settings.scale.z = 1;
     
-    if (ores[ore].scale) {
+    if (ores[ore].scale && !settings.isSaveMap) {
         settings.scale.x *= ores[ore].scale.x ?? 1;
         settings.scale.y *= ores[ore].scale.y ?? 1;
         settings.scale.z *= ores[ore].scale.z ?? 1;
