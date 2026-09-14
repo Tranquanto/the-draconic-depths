@@ -43,131 +43,152 @@ const tiers = {
         color: "#ffffff",
         name: "Common",
         maxChance: Infinity, // inclusive (except for infinity ofc)
-        minChance: 1 / 1000 // exclusive
+        minChance: 1 / 1000, // exclusive
+        desc: "More common than 1 in 1k at its most common point."
     },
     uncommon: {
         color: "#00ff00",
         name: "Uncommon",
         maxChance: 1 / 1000,
-        minChance: 1 / 10000
+        minChance: 1 / 10000,
+        desc: "Between 1 in 1k and 1 in 10k at its most common point."
     },
     rare: {
         color: "#8888ff",
         name: "Rare",
         maxChance: 1 / 10000,
-        minChance: 1 / 100000
+        minChance: 1 / 100000,
+        desc: "Between 1 in 10k and 1 in 100k at its most common point."
     },
     epic: {
         color: "#ff00ff",
         name: "Epic",
         maxChance: 1 / 1e5,
         minChance: 1 / 1e6,
-        audio: true
+        audio: true,
+        desc: "Between 1 in 100k and 1 in 1M at its most common point."
     },
     legendary: {
         color: "#ff8800",
         name: "Legendary",
         maxChance: 1 / 1e6,
         minChance: 1 / 3e6,
-        audio: true
+        audio: true,
+        desc: "Between 1 in 1M and 1 in 3M at its most common point."
     },
     divine: {
         color: "#ffaee4",
         name: "Divine",
         maxChance: 1 / 3e6,
         minChance: 1 / 1e7,
-        audio: true
+        audio: true,
+        desc: "Between 1 in 3M and 1 in 10M at its most common point."
     },
     mythic: {
         color: "#00ffff",
         name: "Mythic",
         maxChance: 1 / 1e7,
         minChance: 1 / 3e7,
-        audio: true
+        audio: true,
+        desc: "Between 1 in 10M and 1 in 30M at its most common point."
     },
     angelic: {
         color: "#fff67d",
         name: "Angelic",
         maxChance: 1 / 3e7,
         minChance: 1 / 1e8,
-        audio: true
+        audio: true,
+        desc: "Between 1 in 30M and 1 in 100M at its most common point."
     },
     unfathomable: {
         color: "#ff0000",
         name: "Unfathomable",
         maxChance: 1 / 1e8,
         minChance: 1 / 3e8,
-        audio: true
+        audio: true,
+        desc: "Between 1 in 100M and 1 in 300M at its most common point."
     },
     extravagant: {
         color: "#80ff80",
         name: "Extravagant",
         maxChance: 1 / 3e8,
         minChance: 1 / 1e9,
-        audio: true
+        audio: true,
+        desc: "Between 1 in 300M and 1 in 1B at its most common point."
     },
     inconceivable: {
         color: "#aa00ff",
         name: "Inconceivable",
         maxChance: 1 / 1e9,
         minChance: 1 / 3e9,
-        audio: true
+        audio: true,
+        desc: "Between 1 in 1B and 1 in 3B at its most common point."
     },
     apotheotic: {
         color: "#ff6600",
         name: "Apotheotic",
         maxChance: 1 / 3e9,
         minChance: 1 / 1e10,
-        audio: true
+        audio: true,
+        desc: "Between 1 in 3B and 1 in 10B at its most common point."
     },
     transcendent: {
         color: "#0099ff",
         name: "Transcendent",
         maxChance: 1 / 1e10,
         minChance: 1 / 3e10,
-        audio: true
+        audio: true,
+        desc: "Between 1 in 10B and 1 in 30B at its most common point."
     },
     metaexistential: {
         color: "#ffbe88",
         name: "Metaexistential",
         maxChance: 1 / 3e10,
         minChance: 1 / 1e11,
-        audio: true
+        audio: true,
+        desc: "Between 1 in 30B and 1 in 100B at its most common point."
     },
     omniversal: {
         color: "#0044ff",
         name: "Omniversal",
         maxChance: 1 / 1e11,
         minChance: -Infinity,
-        audio: true
+        audio: true,
+        desc: "1 in 100B or rarer."
     },
     peculiar: { // requires special conditions to spawn (common to uncommon)
         color: "#a08b48",
-        name: "Peculiar"
+        name: "Peculiar",
+        desc: "Common, but requires special conditions to spawn."
     },
     enigmatic: { // same as peculiar but rarer (rare to epic)
         color: "#a6a9a3",
         name: "Enigmatic",
-        local: true
+        local: true,
+        desc: "Rare and requires special conditions to spawn."
     },
     exotic: { // rarer than enigmatic (legendary to mythic)
         color: "#d089ff",
         name: "Exotic",
-        global: true
+        global: true,
+        desc: "Very rare and requires special conditions to spawn."
     },
     bizarre: { // rarer than exotic (angelic+)
         color: "#9d1153",
         name: "Bizarre",
         global: true,
-        audio: true
+        audio: true,
+        desc: "Extremely rare and requires special conditions to spawn."
     },
     legacy: { // ores that are no longer obtainable, but still exist to those who held onto them
         color: "#000000",
-        name: "Legacy"
+        name: "Legacy",
+        desc: "No longer obtainable."
     },
     placeholder: {
         color: "#ffffff",
-        name: "Placeholder"
+        name: "Placeholder",
+        desc: "Ores that do not exist. Will be removed on a refresh."
     }
 };
 
@@ -730,7 +751,10 @@ let ores = {
         str: 0.9,
         singleLayer: true,
         desc: "A light, soft stone with a lot of air holes.",
-        creator: ["Tranquanto", "squid"],
+        creator: {
+            squid: "ore",
+            Tranquanto: "item"
+        },
         sfx: "stone"
     },
     compressedSulfur: {
@@ -1459,7 +1483,8 @@ let ores = {
                 minY: minHeight,
                 condition(x, y, z) {
                     return getBiomeNumber(x, y, z, "clay") >= 0.6 && y <= topLayer(x, z);
-                }
+                },
+                conditionLabel: "Only in clay"
             },
             { // chance can be a constant, object, or array of objects
                 chance: {max: 0, min: 0.02},
@@ -2586,7 +2611,10 @@ let ores = {
         guaranteedVein: true,
         spawnMsg: "A strong gravitational force pulls you in...",
         excludeFromWiki: 1,
-        creator: ["Tranquanto", "GooseterV"]
+        creator: {
+            Tranquanto: "all",
+            GooseterV: "idea"
+        }
     },
     astatine: {
         name: "Astatine",
@@ -2852,7 +2880,10 @@ let ores = {
         radiation: 150,
         radiationFalloff: 0.7, // -70% per block distance
         audio: "blackHole.mp3",
-        creator: ["Tranquanto", "squid"],
+        creator: {
+            Tranquanto: "ore",
+            squid: "item"
+        },
         cave: {
             air: true
         }
@@ -2996,7 +3027,10 @@ let ores = {
         spawnMsg: "Impatience begins to tear into your soul, hurling you into madness...",
         audio: "modified peruri.mp3",
         music: "Tranquanto - Péruri",
-        creator: ["startijer", "Tranquanto"],
+        creator: {
+            Tranquanto: "all",
+            startijer: ["ore", "item"]
+        },
         excludeFromWiki: 1
     },
     // apotheotic

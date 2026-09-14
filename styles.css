@@ -784,11 +784,12 @@ body {
     padding: 0.5vw;
 }
 
-.wikiOreTier > .large-recipe-inputs {
+.wikiOreTier > .large-recipe-inputs, .oreCredit > .large-recipe-inputs {
+    text-align: center;
     transition: all 0.25s ease-in-out;
 }
 
-.wikiOreTier:hover > .large-recipe-inputs {
+.wikiOreTier:hover > .large-recipe-inputs, .oreCredit:hover > .large-recipe-inputs {
     background: #000;
     opacity: 1;
     right: 1vw;

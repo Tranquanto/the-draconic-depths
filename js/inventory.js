@@ -696,7 +696,9 @@ function openOre(ore) { // open wiki page
     tier.innerHTML = `<b>Tier:</b> <span style="color: ${tiers[oreData.tier].color}">${tiers[oreData.tier].name}</span>`;
     if (oreData.removalReason) {
         tier.style.textDecoration = "line-through";
-        tier.innerHTML += `<div class="large-recipe-inputs" style="text-align: center;"><b>Removal Reason:</b><br>${oreData.removalReason}</div>`;
+        tier.innerHTML += `<div class="large-recipe-inputs"><b>Removal Reason:</b><br>${oreData.removalReason}</div>`;
+    } else if (tiers[oreData.tier].desc) {
+        tier.innerHTML += `<div class="large-recipe-inputs">${tiers[oreData.tier].desc}</div>`;
     }
     textStuff.appendChild(tier);
 
@@ -740,10 +742,19 @@ function openOre(ore) { // open wiki page
             creator.className = "wikiText";
             creator.innerHTML = `<b>Creator:</b> ${oreData.creator}`;
             textStuff.appendChild(creator);
-        } else if (typeof oreData.creator === "object" && Array.isArray(oreData.creator)) {
+        } else if (Array.isArray(oreData.creator)) {
             let creator = document.createElement("p");
             creator.className = "wikiText";
             creator.innerHTML = `<b>Creators:</b> ${oreData.creator.join(", ")}`;
+            textStuff.appendChild(creator);
+        } else if (typeof oreData.creator === "object") {
+            const creators = Object.keys(oreData.creator).map(name => {
+                return `<span class="oreCredit">${name}<div class="large-recipe-inputs">${Array.isArray(oreData.creator[name]) ? oreData.creator[name].join(", ") : oreData.creator[name]}</div></span>`;
+            });
+
+            let creator = document.createElement("p");
+            creator.className = "wikiText";
+            creator.innerHTML = `<b>Creators:</b> ${creators.join(", ")}`;
             textStuff.appendChild(creator);
         }
     }
@@ -943,9 +954,9 @@ function openOre(ore) { // open wiki page
             tooltip.style.display = "block";
             tooltip.innerHTML =
                 `<b>${nearest.x > 0 ? "Altitude:" : "Depth:"}</b> <span style="color: ${layers[getLayer(nearest.x, 0, 0, false)].color}">${formatNum(Math.round(nearest.x))}m</span><br>` +
-                `<b>Rarity:</b><span style="color: ${tiers[nearest.tier]?.color || "#fff"}"> ${`1 / ${formatNum(1 / nearest.y)}`.replace("1 / Infinity", "0").replace("1 / 0.999", "Filler")}</span><br>` +
+                `<b>Rarity:</b><span style="color: ${tiers[nearest.tier]?.color || "#fff"}"> ${`${formatChance(nearest.y, null, 0)}`.replace("1 / Infinity", "0").replace("1 / 0.999", "Filler")}</span><br>` +
                 (nearest.conditionLabel ? `<b>Condition:</b> <span style="color: #fff">${nearest.conditionLabel}</span><br>` : "") +
-                (nearest.adj ? `<b>Adjusted Rarity:</b> <span style="color: ${tiers[nearest.adjTier]?.color || "#fff"}">1 / ${formatNum(1 / nearest.adj)}</span><br>` : "");
+                (nearest.adj ? `<b>Adjusted Rarity:</b> <span style="color: ${tiers[nearest.adjTier]?.color || "#fff"}">${formatChance(nearest.adj, null, 0)}</span><br>` : "");
             tooltip.style.left = (evt.clientX + 16) + "px";
             tooltip.style.top = (evt.clientY + 16) + "px";
         }
@@ -969,12 +980,12 @@ function openOre(ore) { // open wiki page
 
     const maxChanceText = document.createElement("span");
     maxChanceText.className = "minChanceText";
-    maxChanceText.innerHTML = `1 in ${formatNum(1 / maxChance, 2, 99999)}`.replace("1 in Infinity", "0").replace("1 in 0.999", "Filler");
+    maxChanceText.innerHTML = `${formatChance(maxChance, null, 0.01)}`.replace("Infinity", "Filler");
     maxChanceText.style.height = rarityGraph.height + "px";
 
     const minChanceText = document.createElement("span");
     minChanceText.className = "maxChanceText";
-    minChanceText.innerHTML = `1 in ${formatNum(1 / minChance, 2, 99999)}`.replace("1 in Infinity", "0").replace("1 in 0.999", "Filler").replace("1 in 0", "Filler");
+    minChanceText.innerHTML = `${formatChance(minChance, null, 0.01)}`.replace("Infinity", "Filler");
     minChanceText.style.height = rarityGraph.height + "px";
 
     const maxDepthText = document.createElement("span");

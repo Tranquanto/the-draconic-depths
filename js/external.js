@@ -35,8 +35,10 @@ function formatNum(n, d = 2, max = 1e15, format) {
  * @param {string} format Locale
  * @returns {string} Formatted chance string (e.g. "1 in 40,000", "1 in 250 (0.4%)", or "25%")
  */
-function formatChance(chance, format) {
-    if (chance <= 0.0001) {
+function formatChance(chance, format, percentageThreshold = 0.0001) {
+    if (format === null) format = undefined;
+    if (chance === 0) return "0%";
+    if (chance <= percentageThreshold) {
         return `1 in ${formatNum(1 / chance, 2, undefined, format)}`;
     } else if (chance <= 0.1) {
         return `1 in ${formatNum(1 / chance, 2, undefined, format)} (${formatNum(chance * 100, 2, undefined, format)}%)`;
