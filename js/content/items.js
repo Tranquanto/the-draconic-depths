@@ -511,12 +511,12 @@ let ores = {
         singleLayer: true,
         desc: "A plant that grows on the surface.",
         multipleTextures: [
-            "grass_side", // +z
-            "grass_side", // -z
-            "grass_side", // +x
-            "grass_side", // -x
-            "grass", // +y
-            "dirt" // -y
+            "block/grass_side", // +z
+            "block/grass_side", // -z
+            "block/grass_side", // +x
+            "block/grass_side", // -x
+            "block/grass", // +y
+            "block/dirt" // -y
         ],
         condition(x, y, z) {
             return y === topLayer(x, z) && checkAllBiomes(x, y, z);
@@ -533,12 +533,12 @@ let ores = {
         singleLayer: true,
         desc: "A plant that grows in autumnal biomes.",
         multipleTextures: [
-            "autumnalGrass_side", // +z
-            "autumnalGrass_side", // -z
-            "autumnalGrass_side", // +x
-            "autumnalGrass_side", // -x
-            "autumnalGrass", // +y
-            "dirt" // -y
+            "block/autumnalGrass_side", // +z
+            "block/autumnalGrass_side", // -z
+            "block/autumnalGrass_side", // +x
+            "block/autumnalGrass_side", // -x
+            "block/autumnalGrass", // +y
+            "block/dirt" // -y
         ],
         condition(x, y, z) {
             return y === topLayer(x, z) && checkAllBiomes(x, y, z, "autumnal");
@@ -755,7 +755,7 @@ let ores = {
         desc: "A basic radioactive mineral.",
         sfx: "stone",
         emissive: {
-            map: "pitchblende_emissive",
+            map: "block/emissive/pitchblende",
             str: 0.4
         }
     },
@@ -990,7 +990,7 @@ let ores = {
         forcedBG: true,
         desc: "The hot rock between the crust and core.",
         emissive: {
-            map: "mantle_emissive",
+            map: "block/emissive/mantle",
             str: 1
         },
         sfx: "stone"
@@ -1626,7 +1626,7 @@ let ores = {
             str: 1.8
         },
         emissive: {
-            map: "tugtupite_emissive"
+            map: "block/emissive/tugtupite"
         },
         desc: "A rare magenta gemstone. The name is fun to say, I think."
     },
@@ -2477,7 +2477,7 @@ let ores = {
         },
         emissive: {
             str: 1,
-            map: "dragonite_emissive"
+            map: "block/emissive/dragonite"
         }
     },
     pluyoniom: { // created 2023/10/16
@@ -2919,7 +2919,7 @@ let ores = {
         },
         emissive: {
             str: 1,
-            map: "dwagonite_emissive"
+            map: "block/emissive/dwagonite"
         },
         spawnMsg: "da dwagon's rawr echoes thwoughout da mines...",
         excludeFromWiki: 1
@@ -2976,7 +2976,7 @@ let ores = {
         },
         emissive: {
             str: 3,
-            map: "antimatter_emissive"
+            map: "block/emissive/antimatter"
         }
     },
     alaphite: {
@@ -3013,7 +3013,7 @@ let ores = {
         },
         emissive: {
             str: 1,
-            map: "exoticMatter_emissive"
+            map: "other/pixel"
         },
         spawnMsg: "An otherworldly substance of incomprehensible properties emanates a deep resonance, shaking you to your core...",
         excludeFromWiki: 1,
@@ -3362,7 +3362,7 @@ let ores = {
         onGenerate(x, y, z) {
             const material = new BABYLON.StandardMaterial("material");
 
-            material.diffuseTexture = material.opacityTexture = vars.getTexture("lightRay", undefined, "src");
+            material.diffuseTexture = material.opacityTexture = vars.getTexture("particle/lightRay", "src");
             material.transparencyMode = BABYLON.Material.MATERIAL_ALPHABLEND;
             material.alphaMode = BABYLON.Constants.ALPHA_COMBINE;
             material.alpha = 0.1;
@@ -3804,22 +3804,22 @@ let ores = {
         desc: "A torch that emits light.",
         sfx: "wood",
         multipleTextures: [
-            "torch",
-            "torch",
-            "torch",
-            "torch",
-            "pixel", // white
-            "torch_bottom"
+            "block/torch",
+            "block/torch",
+            "block/torch",
+            "block/torch",
+            "other/pixel", // white
+            "block/torch_bottom"
         ],
         emissive: {
             str: 1.5,
             map: [
-                "torch_emissive",
-                "torch_emissive",
-                "torch_emissive",
-                "torch_emissive",
-                "pixel",
-                "transparent"
+                "block/emissive/torch",
+                "block/emissive/torch",
+                "block/emissive/torch",
+                "block/emissive/torch",
+                "other/pixel",
+                "other/transparent"
             ]
         },
         scale: {x: 0.25, z: 0.25},
@@ -3842,12 +3842,12 @@ let ores = {
         desc: "A torch that has burned out.",
         sfx: "wood",
         multipleTextures: [
-            "extinguishedTorch",
-            "extinguishedTorch",
-            "extinguishedTorch",
-            "extinguishedTorch",
-            "extinguishedTorch_top",
-            "torch_bottom"
+            "block/extinguishedTorch",
+            "block/extinguishedTorch",
+            "block/extinguishedTorch",
+            "block/extinguishedTorch",
+            "block/extinguishedTorch_top",
+            "block/torch_bottom"
         ],
         scale: {x: 0.25, z: 0.25},
         cave: {

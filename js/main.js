@@ -702,6 +702,8 @@ function getTexture(ore, type = "ore", face, setTransparent, onlyURL) {
     if (typeof type !== "string" && type !== undefined) console.warn("INCORRECT PARAMETERS!!!!!!!!", ...arguments);
 
     if (ores[ore]?.noTexture) return null;
+
+    let inBlock = false;
     
     if (type === "ore" || type === "emissive") {
         const id = ore;
@@ -715,10 +717,13 @@ function getTexture(ore, type = "ore", face, setTransparent, onlyURL) {
         } else if (ores[id]?.customTexture) {
             ore = ores[id].customTexture?.ore ?? id;
             if (ores[id].customTexture?.src) type = "src";
+            inBlock = true;
+        } else {
+            inBlock = true;
         }
     }
 
-    const url = `img/block/${ore}.png`;
+    const url = `img/${inBlock ? "block/" : ""}${ore}.png`;
     if (onlyURL) return url;
     
     if (!textures[`${ore}_${type}`]) {
@@ -2119,7 +2124,7 @@ function updateBreakMesh(x, y, z, pos = map.at(x, y, z), progress = pos.progress
         mesh.position.set(...chunkSplit);
         
         const material = new BABYLON.StandardMaterial(`breakMaterial-${longID}`, scene);
-        material.diffuseTexture = getTexture(`break${breakState}`, "src", undefined, true);
+        material.diffuseTexture = getTexture(`break/break${breakState}`, "src", undefined, true);
         material.roughness = 1;
         material.specularColor = new BABYLON.Color3(0, 0, 0);
         material.useAlphaFromDiffuseTexture = true;
@@ -3221,5 +3226,5 @@ vars.setFogColor = (color, night) => {
     vars.nightFogColor = getColor(night ?? color);
 }
 
-textures["skybox/space"] = new BABYLON.Texture("img/block/skybox/space.png", scene);
+textures["skybox/space"] = new BABYLON.Texture("img/skybox/space.png", scene);
 textures["skybox/space"].coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
