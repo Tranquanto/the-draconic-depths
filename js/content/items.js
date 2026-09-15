@@ -1331,7 +1331,11 @@ let ores = {
             col: "#dbfcff",
             str: 2
         },
-        desc: "Did this fall from the moon?"
+        desc: "Did this fall from the moon?",
+        creator: {
+            Tranquanto: "ore",
+            Cursedcola: "item"
+        }
     },
     coal: {
         name: "Coal",
@@ -1398,12 +1402,13 @@ let ores = {
     },
     onyx: {
         name: "Onyx",
-        color: "#11120e",
+        color: "#1b0c2a",
         chance: 1 / 330,
         maxY: maxHeight,
         minY: 0,
         str: 4,
-        desc: "A black gemstone found below deserts."
+        desc: "It's not even a waltz!",
+        creator: "Cursedcola"
     },
     dirtness: {
         name: "Dirtness",
@@ -1565,7 +1570,11 @@ let ores = {
             col: "#0f0",
             str: 0.7
         },
-        desc: "The first gemstone after moonstone you'll find, probably, unless you count coal."
+        desc: "The first gemstone after moonstone you'll find, probably, unless you count coal.",
+        creator: {
+            Tranquanto: "ore",
+            Cursedcola: "item"
+        }
     },
     amethyst: {
         name: "Amethyst",
@@ -1579,7 +1588,11 @@ let ores = {
             col: "#80f",
             str: 1.2
         },
-        desc: "A purple variant of quartz."
+        desc: "A purple variant of quartz.",
+        creator: {
+            Tranquanto: "ore",
+            Cursedcola: "item"
+        }
     },
 
     // crystallized layer ores
@@ -1611,7 +1624,11 @@ let ores = {
             col: "#0ff",
             str: 0.7
         },
-        desc: "DIAMONDS AAAAAAAAAAAA"
+        desc: "DIAMONDS AAAAAAAAAAAA",
+        creator: {
+            Tranquanto: "ore",
+            Cursedcola: "item"
+        }
     },
     sapphire: {
         name: "Sapphire",
@@ -1656,7 +1673,7 @@ let ores = {
         desc: "A rare magenta gemstone. The name is fun to say, I think."
     },
     
-    // volcanic layer ores
+    // archaic layer ores
     petrifiedWood: {
         name: "Petrified Wood",
         color: "#6d6d4e",
@@ -1686,6 +1703,18 @@ let ores = {
         str: 20,
         desc: "A fossilized log that has hardened and sunken into the earth over time."
     },
+    hematite: {
+        name: "Hematite",
+        color: "#11120e",
+        chance: {max: 1 / 460, min: 1 / 150},
+        easing: {type: "in", exponent: 2},
+        maxY: -1001,
+        minY: -1350,
+        str: 13,
+        desc: "An iron mineral. It might be old onyx."
+    },
+
+    // volcanic layer ores
     sulfur: {
         name: "Sulfur",
         color: "#ff0",
@@ -2612,8 +2641,7 @@ let ores = {
         spawnMsg: "A strong gravitational force pulls you in...",
         excludeFromWiki: 1,
         creator: {
-            Tranquanto: "all",
-            GooseterV: "idea"
+            Tranquanto: "all"
         }
     },
     astatine: {
